@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CarePoint Clinic — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">CP</div>
+        <div>
+          <h1>CarePoint Clinic</h1>
+          <p>Patient care workflow prototype</p>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="Main">
+        <button type="button" class="nav-link active" data-view="workflow">Workflow</button>
+        <button type="button" class="nav-link" data-view="patient">Patient details</button>
+        <button type="button" class="nav-link" data-view="doctor-history">Doctor history</button>
+        <button type="button" class="nav-link" data-view="stock">Medicine stock</button>
+      </nav>
+      <div class="header-meta">
+        <span class="badge-live">● Live</span>
+        <span id="clock"></span>
+      </div>
+    </header>
+
+    <!-- WORKFLOW VIEW -->
+    <div class="view active" id="view-workflow">
+      <nav class="stepper" aria-label="Care workflow">
+        <button type="button" class="step active" data-step="0">
+          <div class="step-circle">1</div>
+          <div class="step-label">Reception</div>
+        </button>
+        <button type="button" class="step" data-step="1">
+          <div class="step-circle">2</div>
+          <div class="step-label">Vitals</div>
+        </button>
+        <button type="button" class="step" data-step="2">
+          <div class="step-circle">3</div>
+          <div class="step-label">Doctor</div>
+        </button>
+        <button type="button" class="step" data-step="3">
+          <div class="step-circle">4</div>
+          <div class="step-label">Pharmacy & Billing</div>
+        </button>
+      </nav>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="patient-card">
+            <div class="id">Visit #VIS-2026-0847</div>
+            <h2 id="sidebar-name">Priya Sharma</h2>
+            <div class="meta">32 F · Walk-in · 10:42 AM</div>
+            <button type="button" class="link-btn" data-view-jump="patient">View full patient record →</button>
+          </div>
+          <div class="queue-list">
+            <h3>Today’s queue</h3>
+            <div class="queue-item selected" data-patient="Priya Sharma" data-pid="P-1024">
+              <span class="queue-num">A1</span>
+              <span>Priya Sharma</span>
+              <span class="status-dot status-vitals" title="At vitals"></span>
+            </div>
+            <div class="queue-item" data-patient="Rahul Mehta" data-pid="P-0891">
+              <span class="queue-num">A2</span>
+              <span>Rahul Mehta</span>
+              <span class="status-dot status-waiting"></span>
+            </div>
+            <div class="queue-item" data-patient="Anita Desai" data-pid="P-0756">
+              <span class="queue-num">A3</span>
+              <span>Anita Desai</span>
+              <span class="status-dot status-doctor"></span>
+            </div>
+            <div class="queue-item" data-patient="Vikram Singh" data-pid="P-1102">
+              <span class="queue-num">A4</span>
+              <span>Vikram Singh</span>
+              <span class="status-dot status-pharmacy"></span>
+            </div>
+          </div>
+        </aside>
+
+        <main class="main-panel">
+          <section class="panel-section active" data-panel="0">
+            <div class="panel-header">
+              <h2>Reception — Check-in</h2>
+              <span class="badge">Front desk</span>
+            </div>
+            <div class="panel-body">
+              <p class="hint">Register walk-in or confirm appointment, then send patient to vitals.</p>
+              <div class="form-grid">
+                <div>
+                  <label>Full name</label>
+                  <input type="text" value="Priya Sharma" id="input-name" />
+                </div>
+                <div><label>Age</label><input type="number" value="32" /></div>
+                <div>
+                  <label>Gender</label>
+                  <select><option>Female</option><option>Male</option><option>Other</option></select>
+                </div>
+                <div><label>Phone</label><input type="tel" value="+91 98765 43210" /></div>
+                <div>
+                  <label>Visit type</label>
+                  <select><option>Walk-in</option><option>Follow-up</option><option>Emergency</option></select>
+                </div>
+                <div><label>Chief complaint</label><input type="text" value="Fever & headache (2 days)" /></div>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn btn-primary" data-action="go-step" data-step="1">Send to vitals →</button>
+                <button type="button" class="btn btn-ghost">Print token</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-section" data-panel="1">
+            <div class="panel-header">
+              <h2>Nursing — Vitals</h2>
+              <span class="badge">Pre-consultation</span>
+            </div>
+            <div class="panel-body">
+              <div class="form-grid">
+                <div><label>Blood pressure (mmHg)</label><input type="text" id="bp" value="118/76" /></div>
+                <div><label>Pulse (bpm)</label><input type="number" id="pulse" value="88" /></div>
+                <div><label>Temperature (°F)</label><input type="number" step="0.1" id="temp" value="101.2" /></div>
+                <div><label>SpO₂ (%)</label><input type="number" id="spo2" value="97" /></div>
+                <div><label>Weight (kg)</label><input type="number" id="weight" value="58" /></div>
+                <div><label>Height (cm)</label><input type="number" value="162" /></div>
+              </div>
+              <div class="vitals-grid" id="vitals-preview">
+                <div class="vital-card"><div class="value" id="v-bp">118/76</div><div class="unit">Blood pressure</div></div>
+                <div class="vital-card"><div class="value" id="v-pulse">88</div><div class="unit">Pulse bpm</div></div>
+                <div class="vital-card"><div class="value" id="v-temp">101.2</div><div class="unit">Temp °F</div></div>
+                <div class="vital-card"><div class="value" id="v-spo2">97%</div><div class="unit">SpO₂</div></div>
+              </div>
+              <div><label>Nursing notes</label><textarea>Patient cooperative. Advised fluids.</textarea></div>
+              <div class="btn-row">
+                <button type="button" class="btn btn-secondary" data-action="go-step" data-step="0">← Back</button>
+                <button type="button" class="btn btn-primary" data-action="go-step" data-step="2">Save & send to doctor →</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-section" data-panel="2">
+            <div class="panel-header">
+              <h2>Doctor — Consultation & prescription</h2>
+              <span class="badge">Dr. Ananya Nair</span>
+            </div>
+            <div class="panel-body">
+              <div class="alert alert-info show">
+                <strong>Vitals:</strong> BP 118/76 · Pulse 88 · Temp 101.2°F · SpO₂ 97%
+                · <button type="button" class="inline-link" data-view-jump="patient">See patient allergies & history</button>
+              </div>
+              <div class="form-grid">
+                <div class="span-2"><label>History & examination</label><textarea>URTI symptoms. Throat mildly erythematous. Lungs clear.</textarea></div>
+                <div class="span-2"><label>Diagnosis</label><input type="text" value="Acute viral fever / URTI" /></div>
+              </div>
+              <h3 class="subheading">Prescription</h3>
+              <table>
+                <thead><tr><th>Medicine</th><th>Instructions</th><th>Stock</th></tr></thead>
+                <tbody>
+                  <tr><td>Paracetamol 500mg</td><td>1 tab TID × 3 days</td><td class="stock-ok">240 tabs</td></tr>
+                  <tr><td>Cetirizine 10mg</td><td>1 tab OD at night × 5 days</td><td class="stock-low">18 tabs</td></tr>
+                </tbody>
+              </table>
+              <div class="btn-row">
+                <button type="button" class="btn btn-secondary" data-action="go-step" data-step="1">← Back</button>
+                <button type="button" class="btn btn-primary" data-action="go-step" data-step="3">Sign & send to pharmacy →</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-section" data-panel="3">
+            <div class="panel-header">
+              <h2>Pharmacy & billing</h2>
+              <span class="badge">Med tech + cashier</span>
+            </div>
+            <div class="panel-body">
+              <table class="mb-lg">
+                <thead>
+                  <tr><th>Item</th><th>Qty</th><th>Unit ₹</th><th>Stock</th><th>Dispense</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Paracetamol 500mg</td><td>9</td><td>3</td><td class="stock-ok">OK</td><td><input type="checkbox" checked /></td></tr>
+                  <tr><td>Cetirizine 10mg</td><td>5</td><td>5</td><td class="stock-low">Low</td><td><input type="checkbox" checked /></td></tr>
+                  <tr><td>Consultation fee</td><td>1</td><td>400</td><td>—</td><td>—</td></tr>
+                </tbody>
+              </table>
+              <div class="split-row">
+                <div class="form-grid flex-1">
+                  <div><label>Payment mode</label><select><option>UPI</option><option>Cash</option><option>Card</option></select></div>
+                  <div><label>Discount (₹)</label><input type="number" value="0" /></div>
+                </div>
+                <div class="invoice-box">
+                  <div class="invoice-row"><span>Medicines</span><span>₹ 52</span></div>
+                  <div class="invoice-row"><span>Consultation</span><span>₹ 400</span></div>
+                  <div class="invoice-row total"><span>Total</span><span>₹ 452</span></div>
+                </div>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn btn-secondary" data-action="go-step" data-step="2">← Back</button>
+                <button type="button" class="btn btn-primary" id="btn-complete">Complete visit & print bill</button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- PATIENT DETAILS VIEW -->
+    <div class="view" id="view-patient">
+      <div class="page-header">
+        <div>
+          <h2>Patient details</h2>
+          <p class="hint">Sample record for demo — Priya Sharma (P-1024)</p>
+        </div>
+        <button type="button" class="btn btn-secondary" data-view-jump="workflow">← Back to workflow</button>
+      </div>
+
+      <div class="patient-page-grid">
+        <div class="card profile-card">
+          <div class="avatar">PS</div>
+          <h3>Priya Sharma</h3>
+          <p class="muted">Patient ID: P-1024</p>
+          <ul class="detail-list">
+            <li><span>Age / Gender</span><strong>32 · Female</strong></li>
+            <li><span>Phone</span><strong>+91 98765 43210</strong></li>
+            <li><span>Email</span><strong>priya.s@email.com</strong></li>
+            <li><span>Blood group</span><strong>B+</strong></li>
+            <li><span>Address</span><strong>12 Lake View Rd, Pune 411001</strong></li>
+            <li><span>Registered</span><strong>14 Jan 2024</strong></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Clinical summary</h3>
+          <div class="tags">
+            <span class="tag tag-warn">Allergy: Penicillin</span>
+            <span class="tag">Hypertension (controlled)</span>
+            <span class="tag">Non-smoker</span>
+          </div>
+          <p class="clinical-note">Last visit: 12 Sep 2025 — follow-up for BP. Chronic meds: Amlodipine 5mg OD (self-reported compliant).</p>
+          <h4 class="mini-title">Emergency contact</h4>
+          <p>Raj Sharma (spouse) · +91 98765 00011</p>
+        </div>
+
+        <div class="card span-2">
+          <h3 class="card-title">Visit history</h3>
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Doctor</th><th>Complaint</th><th>Diagnosis</th><th>Bill</th></tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td>7 Oct 2026</td><td>Dr. Ananya Nair</td><td>Fever, headache</td><td>URTI / viral fever</td><td>₹ 452 (pending)</td>
+              </tr>
+              <tr>
+                <td>12 Sep 2025</td><td>Dr. Ananya Nair</td><td>BP check</td><td>Essential hypertension</td><td>₹ 550</td>
+              </tr>
+              <tr>
+                <td>3 Mar 2025</td><td>Dr. Vikram Joshi</td><td>Skin rash</td><td>Contact dermatitis</td><td>₹ 680</td>
+              </tr>
+              <tr>
+                <td>18 Nov 2024</td><td>Dr. Ananya Nair</td><td>Cough</td><td>Acute bronchitis</td><td>₹ 420</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Recent vitals trend</h3>
+          <ul class="timeline">
+            <li><time>Today 10:55</time><span>BP 118/76 · Pulse 88 · Temp 101.2°F</span></li>
+            <li><time>12 Sep 2025</time><span>BP 122/80 · Pulse 72 · Temp 98.4°F</span></li>
+            <li><time>18 Nov 2024</time><span>BP 120/78 · Pulse 76 · Temp 99.1°F</span></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Documents</h3>
+          <ul class="doc-list">
+            <li>📄 Lab report — CBC (Sep 2025)</li>
+            <li>📄 Previous prescription — Nov 2024</li>
+            <li>📄 Insurance card scan</li>
+          </ul>
+          <button type="button" class="btn btn-ghost btn-block">Upload document</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCTOR HISTORY VIEW -->
+    <div class="view" id="view-doctor-history">
+      <div class="page-header">
+        <div>
+          <h2>Doctor history</h2>
+          <p class="hint">Consultation log & prescriptions — sample data</p>
+        </div>
+        <div class="header-actions">
+          <select id="doctor-select" class="select-inline">
+            <option value="nair">Dr. Ananya Nair — General physician</option>
+            <option value="joshi">Dr. Vikram Joshi — Dermatology</option>
+          </select>
+          <button type="button" class="btn btn-secondary" data-view-jump="workflow">← Workflow</button>
+        </div>
+      </div>
+
+      <div class="doctor-stats">
+        <div class="stat-card">
+          <span class="stat-label">Today’s consultations</span>
+          <span class="stat-value">14</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">This week</span>
+          <span class="stat-value">67</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Avg. consult time</span>
+          <span class="stat-value">11 min</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Follow-ups due</span>
+          <span class="stat-value">5</span>
+        </div>
+      </div>
+
+      <div class="card mb-lg">
+        <h3 class="card-title">Today — Dr. Ananya Nair</h3>
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Patient</th><th>ID</th><th>Diagnosis</th><th>Rx items</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10:48</td>
+              <td><button type="button" class="table-link" data-view-jump="patient">Priya Sharma</button></td>
+              <td>P-1024</td>
+              <td>URTI / viral fever</td>
+              <td>2</td>
+              <td><span class="pill pill-blue">At pharmacy</span></td>
+            </tr>
+            <tr>
+              <td>10:22</td>
+              <td>Anita Desai</td>
+              <td>P-0756</td>
+              <td>Migraine</td>
+              <td>1</td>
+              <td><span class="pill pill-green">Completed</span></td>
+            </tr>
+            <tr>
+              <td>09:55</td>
+              <td>Ramesh Kulkarni</td>
+              <td>P-0933</td>
+              <td>Type 2 DM review</td>
+              <td>3</td>
+              <td><span class="pill pill-green">Completed</span></td>
+            </tr>
+            <tr>
+              <td>09:30</td>
+              <td>Sneha Patil</td>
+              <td>P-0812</td>
+              <td>GERD</td>
+              <td>2</td>
+              <td><span class="pill pill-green">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3 class="card-title">Past prescriptions (sample)</h3>
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Patient</th><th>Medicines</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>6 Oct 2026</td>
+                <td>Vikram Singh</td>
+                <td>Azithromycin, Levocetirizine</td>
+              </tr>
+              <tr>
+                <td>5 Oct 2026</td>
+                <td>Meera Iyer</td>
+                <td>Metformin, Glimepiride</td>
+              </tr>
+              <tr>
+                <td>12 Sep 2025</td>
+                <td><button type="button" class="table-link" data-view-jump="patient">Priya Sharma</button></td>
+                <td>Amlodipine 5mg</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Common diagnoses (last 30 days)</h3>
+          <ul class="bar-list">
+            <li><span>URTI / viral fever</span><div class="bar"><i style="width:78%"></i></div></li>
+            <li><span>Hypertension follow-up</span><div class="bar"><i style="width:52%"></i></div></li>
+            <li><span>Gastritis / GERD</span><div class="bar"><i style="width:38%"></i></div></li>
+            <li><span>Diabetes review</span><div class="bar"><i style="width:31%"></i></div></li>
+          </ul>
+          <p class="hint mt">Prototype chart — not connected to live data.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOCK VIEW -->
+    <div class="view" id="view-stock">
+      <div class="page-header">
+        <div>
+          <h2>Medicine stock</h2>
+          <p class="hint">Inventory for small clinic pharmacy</p>
+        </div>
+        <button type="button" class="btn btn-secondary" data-view-jump="workflow">← Workflow</button>
+      </div>
+      <div class="card">
+        <div class="form-grid mb-lg">
+          <div><label>Search</label><input type="search" placeholder="Name or SKU..." /></div>
+          <div>
+            <label>Filter</label>
+            <select><option>All</option><option>Low stock</option><option>Out of stock</option></select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>SKU</th><th>Medicine</th><th>Batch</th><th>Expiry</th><th>Qty</th><th>Reorder</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>MED-001</td><td>Paracetamol 500mg</td><td>B24A</td><td>Dec 2027</td><td>231</td><td>50</td><td class="stock-ok">Healthy</td></tr>
+            <tr><td>MED-014</td><td>Cetirizine 10mg</td><td>B23C</td><td>Mar 2026</td><td>13</td><td>30</td><td class="stock-low">Low</td></tr>
+            <tr><td>MED-022</td><td>Amoxicillin 250mg</td><td>B24X</td><td>Aug 2026</td><td>0</td><td>40</td><td class="stock-out">Out</td></tr>
+            <tr><td>MED-031</td><td>ORS sachets</td><td>B25O</td><td>Jan 2028</td><td>86</td><td>20</td><td class="stock-ok">Healthy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
