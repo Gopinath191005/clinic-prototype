@@ -11,13 +11,33 @@ Static sample UI for a small clinic: reception → vitals → doctor → pharmac
 
 This folder is its **own** git repository: [clinic-prototype](https://github.com/Gopinath191005/clinic-prototype).
 
-After push, enable Pages once:
+### 1. Push code from your PC (required)
 
-1. Open the repo on GitHub → **Settings** → **Pages**
-2. **Build and deployment** → Source: **Deploy from a branch**
-3. Branch: **main**, folder **/ (root)** → **Save**
+Open PowerShell:
 
-Live site (after Pages is enabled): **https://gopinath191005.github.io/clinic-prototype/**
+```powershell
+cd "C:\New folder\clinic-care-prototype"
+git add -A
+git commit -m "Deploy clinic prototype"   # skip if nothing to commit
+git push -u origin main
+```
+
+Sign in to GitHub if prompted. On the repo **Code** tab you should see `index.html` at the root.
+
+### 2. Turn on GitHub Pages (one time)
+
+1. Repo → **Settings** (you are here)
+2. Left sidebar → **Pages** (under “Code and automation”)
+3. **Build and deployment** → **Source**: **GitHub Actions**
+4. After the next push, open **Actions** and wait for “Deploy to GitHub Pages” to finish (green check)
+
+Alternative: Source **Deploy from a branch** → branch **main**, folder **/ (root)** → **Save**.
+
+### 3. Open the site
+
+**https://gopinath191005.github.io/clinic-prototype/**
+
+Wait 1–3 minutes after the first successful deploy. A **404** means either code is not pushed yet or Pages is not enabled.
 
 No build step required.
 
